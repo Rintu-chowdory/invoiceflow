@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Save, Upload } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Save, Upload, Key } from 'lucide-react'
 
 export default function Settings() {
   const [businessInfo, setBusinessInfo] = useState({
@@ -27,12 +27,26 @@ export default function Settings() {
     paypal: false,
   })
 
+  const [groqKey, setGroqKey] = useState('')
+  const [keySaved, setKeySaved] = useState(false)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('invoiceflow_groq_key')
+    if (saved) setGroqKey(saved)
+  }, [])
+
   const handleBusinessChange = (field, value) => {
     setBusinessInfo({ ...businessInfo, [field]: value })
   }
 
   const handleSave = () => {
     alert('Settings saved successfully!')
+  }
+
+  const handleSaveGroqKey = () => {
+    localStorage.setItem('invoiceflow_groq_key', groqKey)
+    setKeySaved(true)
+    setTimeout(() => setKeySaved(false), 2000)
   }
 
   return (
@@ -43,6 +57,41 @@ export default function Settings() {
       </div>
 
       <div className="space-y-6">
+
+        {/* AI Configuration */}
+        <div className="bg-navy-900 border border-amber-500/30 rounded-lg p-6">
+          <div className="flex items-center gap-2 mb-1">
+            <Key className="w-5 h-5 text-amber-400" />
+            <h2 className="text-xl font-bold text-white">AI Configuration</h2>
+            <span className="ml-2 bg-amber-500 text-black text-xs font-bold px-2 py-0.5 rounded">AI</span>
+          </div>
+          <p className="text-gray-400 text-sm mb-4">Add your Groq API key to enable AI Invoice Assistant features</p>
+          <div className="flex gap-2">
+            <input
+              type="password"
+              value={groqKey}
+              onChange={(e) => setGroqKey(e.target.value)}
+              placeholder="gsk_..."
+              className="flex-1 bg-navy-800 border border-navy-600 rounded px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500"
+            />
+            <button
+              onClick={handleSaveGroqKey}
+              className="bg-amber-500 hover:bg-amber-400 text-black font-semibold px-4 py-2 rounded transition-colors"
+            >
+              {keySaved ? 'Saved ✓' : 'Save Key'}
+            </button>
+          </div>
+          {groqKey && (
+            <p className="text-green-400 text-xs mt-2">✓ API key is set — AI features are ready</p>
+          )}
+          <p className="text-gray-500 text-xs mt-2">
+            Get a free key at{' '}
+            <a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">
+              console.groq.com
+            </a>
+          </p>
+        </div>
+
         <div className="bg-navy-900 border border-navy-700 rounded-lg p-6">
           <h2 className="text-xl font-bold text-white mb-4">Business Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -105,36 +154,26 @@ export default function Settings() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Primary Color</label>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                   <input
                     type="color"
                     value={invoiceTemplate.primaryColor}
-                    onChange={(e) => setInvoiceTemplate({ ...invoiceTemplate, primaryColor: e.target.value })}
-                    className="w-12 h-10 cursor-pointer rounded"
+                    onChange={(e) => setInvoiceTemplate({...invoiceTemplate, primaryColor: e.target.value})}
+                    className="w-10 h-10 rounded cursor-pointer"
                   />
-                  <input
-                    type="text"
-                    value={invoiceTemplate.primaryColor}
-                    className="flex-1"
-                    disabled
-                  />
+                  <input type="text" value={invoiceTemplate.primaryColor} readOnly className="flex-1" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Accent Color</label>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                   <input
                     type="color"
                     value={invoiceTemplate.accentColor}
-                    onChange={(e) => setInvoiceTemplate({ ...invoiceTemplate, accentColor: e.target.value })}
-                    className="w-12 h-10 cursor-pointer rounded"
+                    onChange={(e) => setInvoiceTemplate({...invoiceTemplate, accentColor: e.target.value})}
+                    className="w-10 h-10 rounded cursor-pointer"
                   />
-                  <input
-                    type="text"
-                    value={invoiceTemplate.accentColor}
-                    className="flex-1"
-                    disabled
-                  />
+                  <input type="text" value={invoiceTemplate.accentColor} readOnly className="flex-1" />
                 </div>
               </div>
             </div>
@@ -143,90 +182,63 @@ export default function Settings() {
 
         <div className="bg-navy-900 border border-navy-700 rounded-lg p-6">
           <h2 className="text-xl font-bold text-white mb-4">Tax Settings</h2>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Tax Rate (%)</label>
-                <input
-                  type="number"
-                  value={taxSettings.taxRate}
-                  onChange={(e) => setTaxSettings({ ...taxSettings, taxRate: parseFloat(e.target.value) })}
-                  className="w-full"
-                  min="0"
-                  max="100"
-                  step="0.1"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Tax ID / EIN</label>
-                <input
-                  type="text"
-                  value={taxSettings.taxId}
-                  onChange={(e) => setTaxSettings({ ...taxSettings, taxId: e.target.value })}
-                  className="w-full"
-                />
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Tax Rate (%)</label>
+              <input
+                type="number"
+                value={taxSettings.taxRate}
+                onChange={(e) => setTaxSettings({...taxSettings, taxRate: e.target.value})}
+                className="w-full"
+              />
             </div>
-            <div className="flex items-center gap-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Tax ID / EIN</label>
+              <input
+                type="text"
+                value={taxSettings.taxId}
+                onChange={(e) => setTaxSettings({...taxSettings, taxId: e.target.value})}
+                className="w-full"
+              />
+            </div>
+          </div>
+          <div className="mt-4">
+            <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
-                id="enableTax"
                 checked={taxSettings.enableTaxCalculation}
-                onChange={(e) => setTaxSettings({ ...taxSettings, enableTaxCalculation: e.target.checked })}
-                className="w-4 h-4 cursor-pointer"
+                onChange={(e) => setTaxSettings({...taxSettings, enableTaxCalculation: e.target.checked})}
+                className="w-4 h-4"
               />
-              <label htmlFor="enableTax" className="text-sm text-gray-300 cursor-pointer">
-                Enable automatic tax calculation on invoices
-              </label>
-            </div>
+              <span className="text-gray-300 text-sm">Enable automatic tax calculation on invoices</span>
+            </label>
           </div>
         </div>
 
         <div className="bg-navy-900 border border-navy-700 rounded-lg p-6">
           <h2 className="text-xl font-bold text-white mb-4">Payment Methods</h2>
           <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                id="bankTransfer"
-                checked={paymentMethods.bankTransfer}
-                onChange={(e) => setPaymentMethods({ ...paymentMethods, bankTransfer: e.target.checked })}
-                className="w-4 h-4 cursor-pointer"
-              />
-              <label htmlFor="bankTransfer" className="text-sm text-gray-300 cursor-pointer">
-                Bank Transfer (ACH)
+            {[
+              { key: 'bankTransfer', label: 'Bank Transfer (ACH)' },
+              { key: 'creditCard', label: 'Credit Card' },
+              { key: 'paypal', label: 'PayPal' },
+            ].map(({ key, label }) => (
+              <label key={key} className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={paymentMethods[key]}
+                  onChange={(e) => setPaymentMethods({...paymentMethods, [key]: e.target.checked})}
+                  className="w-4 h-4"
+                />
+                <span className="text-gray-300">{label}</span>
               </label>
-            </div>
-            <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                id="creditCard"
-                checked={paymentMethods.creditCard}
-                onChange={(e) => setPaymentMethods({ ...paymentMethods, creditCard: e.target.checked })}
-                className="w-4 h-4 cursor-pointer"
-              />
-              <label htmlFor="creditCard" className="text-sm text-gray-300 cursor-pointer">
-                Credit Card
-              </label>
-            </div>
-            <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                id="paypal"
-                checked={paymentMethods.paypal}
-                onChange={(e) => setPaymentMethods({ ...paymentMethods, paypal: e.target.checked })}
-                className="w-4 h-4 cursor-pointer"
-              />
-              <label htmlFor="paypal" className="text-sm text-gray-300 cursor-pointer">
-                PayPal
-              </label>
-            </div>
+            ))}
           </div>
         </div>
 
         <button
           onClick={handleSave}
-          className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-navy-950 font-semibold py-3 rounded-lg transition-colors"
+          className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold py-3 rounded-lg transition-colors"
         >
           <Save className="w-5 h-5" />
           Save All Settings
