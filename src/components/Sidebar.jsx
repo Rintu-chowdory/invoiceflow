@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { BarChart3, FileText, Users, CreditCard, Package, TrendingUp, Settings, Sparkles } from 'lucide-react'
+import { BarChart3, FileText, Users, CreditCard, Package, TrendingUp, Settings, Sparkles, Shield } from 'lucide-react'
 
 export default function Sidebar() {
   const location = useLocation()
@@ -51,6 +51,19 @@ export default function Sidebar() {
           })}
         </ul>
       </nav>
+      <div className="border-t border-navy-700 pt-4">
+        <Link
+          to="/datenschutz"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
+            isActive('/datenschutz')
+              ? 'bg-amber-500 text-white'
+              : 'text-slate-400 hover:text-white hover:bg-navy-800'
+          }`}
+        >
+          <Shield className="w-5 h-5" />
+          <span className="font-medium text-sm">Datenschutz</span>
+        </Link>
+      </div>
     </aside>
   )
 }
