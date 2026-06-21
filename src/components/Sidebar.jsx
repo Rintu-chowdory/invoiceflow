@@ -51,7 +51,7 @@ export default function Sidebar() {
           })}
         </ul>
       </nav>
-      <div className="border-t border-navy-700 pt-4">
+      <div className="border-t border-navy-700 pt-4 flex flex-col gap-2">
         <Link
           to="/datenschutz"
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
@@ -62,6 +62,17 @@ export default function Sidebar() {
         >
           <Shield className="w-5 h-5" />
           <span className="font-medium text-sm">Datenschutz</span>
+        </Link>
+        <Link
+          to="/impressum"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
+            isActive('/impressum')
+              ? 'bg-amber-500 text-white'
+              : 'text-slate-400 hover:text-white hover:bg-navy-800'
+          }`}
+        >
+          <Shield className="w-5 h-5" />
+          <span className="font-medium text-sm">Impressum</span>
         </Link>
       </div>
     </aside>
