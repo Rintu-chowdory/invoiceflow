@@ -9,6 +9,7 @@ import Reports from './pages/Reports'
 import Settings from './pages/Settings'
 import AIAssistant from './pages/AIAssistant'
 import Datenschutz from './pages/Datenschutz'
+import Impressum from './pages/Impressum'
 
 function App() {
   return (
