@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Sparkles, Copy, CheckCheck, AlertCircle } from 'lucide-react'
 
 const SERVICE_TYPES = ['Web Development', 'Design', 'Consulting', 'Marketing', 'Support', 'Custom']
@@ -24,7 +25,7 @@ function LineItemTab() {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
+          model: 'openai/gpt-oss-120b',
           messages: [
             { role: 'system', content: 'You are a professional invoicing assistant. Write clear, professional invoice line item descriptions.' },
             { role: 'user', content: `Write a professional invoice line item description for: Service: ${service}, Work done: ${description || 'general work'}, Hours: ${hours || 'N/A'}, Rate: $${rate || 'N/A'}/hr. Write just the description, 1-3 sentences.` }
@@ -33,7 +34,7 @@ function LineItemTab() {
         })
       })
       const data = await res.json()
-      if (data.error) throw new Error(data.error.message)
+      if (data.error) throw new Error(data.error.message || 'The AI service returned an error. Please try again.')
       setResult(data.choices[0].message.content)
     } catch (e) { setError(e.message) }
     setLoading(false)
@@ -42,7 +43,12 @@ function LineItemTab() {
 
   return (
     <div className="space-y-4">
-      {!apiKey && <div className="flex items-center gap-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 text-sm"><AlertCircle className="w-4 h-4 flex-shrink-0" />Add your Groq API key in Settings to use AI features</div>}
+      {!apiKey && (
+        <div className="flex items-center gap-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 text-sm">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+          <span>Add your Groq API key in <Link to="/settings" className="underline font-medium hover:text-yellow-300">Settings</Link> to use AI features</span>
+        </div>
+      )}
       <div>
         <label className="text-sm text-slate-400 mb-1 block">Service Type</label>
         <select value={service} onChange={e => setService(e.target.value)} className="w-full bg-navy-800 text-white rounded-lg px-3 py-2 border border-navy-600 focus:outline-none focus:border-amber-500">
@@ -102,7 +108,7 @@ function ReminderTab() {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
+          model: 'openai/gpt-oss-120b',
           messages: [
             { role: 'system', content: 'You are a professional accounts receivable specialist. Write payment reminder emails that are effective but maintain client relationships.' },
             { role: 'user', content: `Write a ${tone.toLowerCase()} payment reminder email. Client: ${clientName || 'Client'}, Invoice #: ${invoiceNum || 'INV-001'}, Amount due: $${amount || '0'}, Overdue by: ${overdue}. Include subject line.` }
@@ -111,7 +117,7 @@ function ReminderTab() {
         })
       })
       const data = await res.json()
-      if (data.error) throw new Error(data.error.message)
+      if (data.error) throw new Error(data.error.message || 'The AI service returned an error. Please try again.')
       setResult(data.choices[0].message.content)
     } catch (e) { setError(e.message) }
     setLoading(false)
@@ -120,7 +126,12 @@ function ReminderTab() {
 
   return (
     <div className="space-y-4">
-      {!apiKey && <div className="flex items-center gap-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 text-sm"><AlertCircle className="w-4 h-4 flex-shrink-0" />Add your Groq API key in Settings to use AI features</div>}
+      {!apiKey && (
+        <div className="flex items-center gap-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 text-sm">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+          <span>Add your Groq API key in <Link to="/settings" className="underline font-medium hover:text-yellow-300">Settings</Link> to use AI features</span>
+        </div>
+      )}
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="text-sm text-slate-400 mb-1 block">Client Name</label>

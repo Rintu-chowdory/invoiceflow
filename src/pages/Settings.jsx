@@ -29,6 +29,7 @@ export default function Settings() {
 
   const [groqKey, setGroqKey] = useState('')
   const [keySaved, setKeySaved] = useState(false)
+  const [allSaved, setAllSaved] = useState(false)
 
   useEffect(() => {
     const saved = localStorage.getItem('invoiceflow_groq_key')
@@ -40,7 +41,8 @@ export default function Settings() {
   }
 
   const handleSave = () => {
-    alert('Settings saved successfully!')
+    setAllSaved(true)
+    setTimeout(() => setAllSaved(false), 2500)
   }
 
   const handleSaveGroqKey = () => {
@@ -241,7 +243,7 @@ export default function Settings() {
           className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold py-3 rounded-lg transition-colors"
         >
           <Save className="w-5 h-5" />
-          Save All Settings
+          {allSaved ? 'Settings Saved ✓' : 'Save All Settings'}
         </button>
       </div>
     </div>

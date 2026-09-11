@@ -18,6 +18,7 @@ const mockProducts = [
 ]
 
 export default function InvoiceModal({ onClose, onSubmit }) {
+  const [formError, setFormError] = useState('')
   const [formData, setFormData] = useState({
     client: '',
     dueDate: '',
@@ -60,9 +61,10 @@ export default function InvoiceModal({ onClose, onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!formData.client || !formData.dueDate || formData.lineItems.length === 0) {
-      alert('Please fill in all required fields')
+      setFormError('Please select a client, due date, and at least one line item.')
       return
     }
+    setFormError('')
     onSubmit({
       client: formData.client,
       dueDate: formData.dueDate,
@@ -83,6 +85,11 @@ export default function InvoiceModal({ onClose, onSubmit }) {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {formError && (
+            <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-lg px-4 py-3">
+              {formError}
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Client</label>

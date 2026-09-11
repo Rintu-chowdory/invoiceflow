@@ -4,12 +4,12 @@ import { formatCurrency, formatDate } from '../utils/formatters'
 import InvoiceModal from '../components/InvoiceModal'
 
 const mockInvoices = [
-  { id: 1, number: 'INV-001', client: 'Acme Corp', amount: 2500, status: 'paid', dueDate: '2024-12-01' },
-  { id: 2, number: 'INV-002', client: 'Tech Solutions', amount: 1800, status: 'pending', dueDate: '2024-12-15' },
-  { id: 3, number: 'INV-003', client: 'Global Industries', amount: 3200, status: 'overdue', dueDate: '2024-11-30' },
-  { id: 4, number: 'INV-004', client: 'StartUp Inc', amount: 950, status: 'paid', dueDate: '2024-12-05' },
-  { id: 5, number: 'INV-005', client: 'Enterprise Ltd', amount: 5000, status: 'pending', dueDate: '2024-12-20' },
-  { id: 6, number: 'INV-006', client: 'Digital Agency', amount: 2200, status: 'paid', dueDate: '2024-12-10' },
+  { id: 1, number: 'INV-001', client: 'Acme Corp', amount: 2500, status: 'paid', dueDate: '2026-08-01' },
+  { id: 2, number: 'INV-002', client: 'Tech Solutions', amount: 1800, status: 'pending', dueDate: '2026-09-25' },
+  { id: 3, number: 'INV-003', client: 'Global Industries', amount: 3200, status: 'overdue', dueDate: '2026-08-20' },
+  { id: 4, number: 'INV-004', client: 'StartUp Inc', amount: 950, status: 'paid', dueDate: '2026-08-10' },
+  { id: 5, number: 'INV-005', client: 'Enterprise Ltd', amount: 5000, status: 'pending', dueDate: '2026-10-05' },
+  { id: 6, number: 'INV-006', client: 'Digital Agency', amount: 2200, status: 'paid', dueDate: '2026-08-15' },
 ]
 
 export default function Invoices() {

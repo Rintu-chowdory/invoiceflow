@@ -2,14 +2,14 @@ import { CreditCard, DollarSign } from 'lucide-react'
 import { formatCurrency, formatDate } from '../utils/formatters'
 
 const mockPayments = [
-  { id: 1, invoice: 'INV-001', client: 'Acme Corp', amount: 2500, date: '2024-12-01', method: 'Credit Card', status: 'completed' },
-  { id: 2, invoice: 'INV-004', client: 'StartUp Inc', amount: 950, date: '2024-12-05', method: 'ACH Transfer', status: 'completed' },
-  { id: 3, invoice: 'INV-006', client: 'Digital Agency', amount: 2200, date: '2024-12-10', method: 'Credit Card', status: 'completed' },
+  { id: 1, invoice: 'INV-001', client: 'Acme Corp', amount: 2500, date: '2026-08-01', method: 'Credit Card', status: 'completed' },
+  { id: 2, invoice: 'INV-004', client: 'StartUp Inc', amount: 950, date: '2026-08-10', method: 'ACH Transfer', status: 'completed' },
+  { id: 3, invoice: 'INV-006', client: 'Digital Agency', amount: 2200, date: '2026-08-15', method: 'Credit Card', status: 'completed' },
 ]
 
 const upcomingPayments = [
-  { id: 1, invoice: 'INV-002', client: 'Tech Solutions', amount: 1800, dueDate: '2024-12-15', status: 'pending' },
-  { id: 2, invoice: 'INV-005', client: 'Enterprise Ltd', amount: 5000, dueDate: '2024-12-20', status: 'pending' },
+  { id: 1, invoice: 'INV-002', client: 'Tech Solutions', amount: 1800, dueDate: '2026-09-25', status: 'pending' },
+  { id: 2, invoice: 'INV-005', client: 'Enterprise Ltd', amount: 5000, dueDate: '2026-10-05', status: 'pending' },
 ]
 
 const paymentMethods = [

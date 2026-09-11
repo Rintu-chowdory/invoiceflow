@@ -10,12 +10,12 @@ const revenueByClient = [
 ]
 
 const monthlyRevenue = [
-  { month: 'Jul', revenue: 12000 },
-  { month: 'Aug', revenue: 19000 },
-  { month: 'Sep', revenue: 15000 },
-  { month: 'Oct', revenue: 22000 },
-  { month: 'Nov', revenue: 18000 },
-  { month: 'Dec', revenue: 25000 },
+  { month: 'Apr', revenue: 12000 },
+  { month: 'May', revenue: 19000 },
+  { month: 'Jun', revenue: 15000 },
+  { month: 'Jul', revenue: 22000 },
+  { month: 'Aug', revenue: 18000 },
+  { month: 'Sep', revenue: 25000 },
 ]
 
 const COLORS = ['#f59e0b', '#fbbf24', '#fcd34d', '#fde68a', '#fef3c7']

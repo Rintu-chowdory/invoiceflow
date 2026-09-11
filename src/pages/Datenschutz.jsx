@@ -103,7 +103,7 @@ export default function Datenschutz() {
       content: (
         <div className="space-y-2">
           <p>InvoiceFlow kann diese Datenschutzrichtlinie jederzeit aktualisieren. Bei wesentlichen Änderungen werden Sie per E-Mail benachrichtigt.</p>
-          <p className="text-xs text-slate-500 pt-2">Zuletzt aktualisiert: Dezember 2024</p>
+          <p className="text-xs text-slate-500 pt-2">Zuletzt aktualisiert: September 2026</p>
         </div>
       )
     }
@@ -151,7 +151,7 @@ export default function Datenschutz() {
             Diese Datenschutzerklärung wird bereitgestellt, um Ihre Rechte nach der DSGVO zu schützen.
           </p>
           <p className="mt-2">
-            © 2024 InvoiceFlow. Alle Rechte vorbehalten.
+            © 2026 InvoiceFlow. Alle Rechte vorbehalten.
           </p>
         </div>
       </div>

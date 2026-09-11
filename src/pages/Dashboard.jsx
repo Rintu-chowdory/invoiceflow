@@ -4,20 +4,20 @@ import { DollarSign, AlertCircle, CheckCircle, Clock } from 'lucide-react'
 import { formatCurrency, formatDate } from '../utils/formatters'
 
 const mockInvoices = [
-  { id: 1, client: 'Acme Corp', amount: 2500, status: 'paid', dueDate: '2024-12-01' },
-  { id: 2, client: 'Tech Solutions', amount: 1800, status: 'pending', dueDate: '2024-12-15' },
-  { id: 3, client: 'Global Industries', amount: 3200, status: 'overdue', dueDate: '2024-11-30' },
-  { id: 4, client: 'StartUp Inc', amount: 950, status: 'paid', dueDate: '2024-12-05' },
-  { id: 5, client: 'Enterprise Ltd', amount: 5000, status: 'pending', dueDate: '2024-12-20' },
+  { id: 1, client: 'Acme Corp', amount: 2500, status: 'paid', dueDate: '2026-08-01' },
+  { id: 2, client: 'Tech Solutions', amount: 1800, status: 'pending', dueDate: '2026-09-25' },
+  { id: 3, client: 'Global Industries', amount: 3200, status: 'overdue', dueDate: '2026-08-20' },
+  { id: 4, client: 'StartUp Inc', amount: 950, status: 'paid', dueDate: '2026-08-10' },
+  { id: 5, client: 'Enterprise Ltd', amount: 5000, status: 'pending', dueDate: '2026-10-05' },
 ]
 
 const chartData = [
-  { month: 'Jul', revenue: 12000 },
-  { month: 'Aug', revenue: 19000 },
-  { month: 'Sep', revenue: 15000 },
-  { month: 'Oct', revenue: 22000 },
-  { month: 'Nov', revenue: 18000 },
-  { month: 'Dec', revenue: 25000 },
+  { month: 'Apr', revenue: 12000 },
+  { month: 'May', revenue: 19000 },
+  { month: 'Jun', revenue: 15000 },
+  { month: 'Jul', revenue: 22000 },
+  { month: 'Aug', revenue: 18000 },
+  { month: 'Sep', revenue: 25000 },
 ]
 
 export default function Dashboard() {
