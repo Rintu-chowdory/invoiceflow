@@ -13,7 +13,7 @@ import Impressum from './pages/Impressum'
 
 function App() {
   return (
-    <Router basename="/invoiceflow">
+    <Router basename={import.meta.env.BASE_URL}>
       <div className="flex h-screen bg-navy-950">
         <Sidebar />
         <main className="flex-1 overflow-auto">
